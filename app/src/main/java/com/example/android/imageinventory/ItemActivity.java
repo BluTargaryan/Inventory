@@ -3,6 +3,8 @@ package com.example.android.imageinventory;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.LoaderManager;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 
@@ -189,7 +191,7 @@ delete.setOnClickListener(new View.OnClickListener() {
             mSupplierTextView.setText(supplier);
             mPriceTextView.setText("$"+Integer.toString(price)+ " - "+Integer.toString(qty)+" pcs");
             mQtySoldTextView.setText(Integer.toString(qtysold) +" units");
-            mImgView.setImageURI(imgUri);
+            isValidUri(mImgView,imgUri);
 
         }
     }
@@ -203,6 +205,18 @@ delete.setOnClickListener(new View.OnClickListener() {
         mImgView.setImageURI(null);
     }
 
-
+    public void isValidUri(ImageView imgView, Uri myUri) {
+        try {
+            //doTheThing()
+            imgView.setImageURI(myUri);
+        } catch(Exception e){
+            //followUri is null or empty
+            myUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                    "://" + getResources().getResourcePackageName(R.mipmap.revolt)
+                    + '/' + getResources().getResourceTypeName(R.mipmap.revolt)
+                    + '/' + getResources().getResourceEntryName(R.mipmap.revolt));
+            imgView.setImageURI(myUri);
+        }
+    }
 
 }

@@ -126,6 +126,21 @@ public class ItyCursorAdapter extends CursorAdapter{
         Log.e("this",productImg);
         //turn uri to string
         Uri myUri = Uri.parse(productImg);
-         imgView.setImageURI(myUri);
+
+      isValidUri(imgView,myUri,context);
+    }
+
+    public void isValidUri(ImageView imgView, Uri myUri, Context context) {
+        try {
+            //doTheThing()
+            imgView.setImageURI(myUri);
+        } catch(Exception e){
+            //followUri is null or empty
+            myUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                    "://" + context.getResources().getResourcePackageName(R.mipmap.revolt)
+                    + '/' + context.getResources().getResourceTypeName(R.mipmap.revolt)
+                    + '/' + context.getResources().getResourceEntryName(R.mipmap.revolt));
+            imgView.setImageURI(myUri);
+        }
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LoaderManager;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -246,7 +247,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
           mprice.setText(String.valueOf(price));
           munits_removed.setText(String.valueOf(0));
           munits_added.setText(String.valueOf(0));
-          mimage.setImageURI(imageUri);
+          isValidUri(mimage,imageUri);
         }
     }
 
@@ -284,6 +285,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             //set img on imageview
             Uri imguri = Uri.parse(imageString);
             img.setImageURI(imguri);
+        }
+    }
+
+    public void isValidUri(ImageView imgView, Uri myUri) {
+        try {
+            //doTheThing()
+            imgView.setImageURI(myUri);
+        } catch(Exception e){
+            //followUri is null or empty
+            myUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                    "://" + getResources().getResourcePackageName(R.mipmap.revolt)
+                    + '/' + getResources().getResourceTypeName(R.mipmap.revolt)
+                    + '/' + getResources().getResourceEntryName(R.mipmap.revolt));
+            imgView.setImageURI(myUri);
         }
     }
 }
