@@ -183,8 +183,16 @@ delete.setOnClickListener(new View.OnClickListener() {
             int qtysold = cursor.getInt(qtysoldColumnIndex);
             String img = cursor.getString(imgColumnIndex);
 
-            Uri imgUri = Uri.parse(img);
-
+            Uri imgUri=null;
+            //condition for if uri is null
+            if(!(img ==null)) {
+               imgUri = Uri.parse(img);
+            }else{
+                imgUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                        "://" + getResources().getResourcePackageName(R.mipmap.revolt)
+                        + '/' + getResources().getResourceTypeName(R.mipmap.revolt)
+                        + '/' + getResources().getResourceEntryName(R.mipmap.revolt));
+            }
 
             //update views
             mNameTextView.setText(name);

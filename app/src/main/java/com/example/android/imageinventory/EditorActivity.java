@@ -235,7 +235,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int qtysold = cursor.getInt(qtysoldColumnIndex);
             String img = cursor.getString(imgColumnIndex);
 
-            Uri imageUri = Uri.parse(img);
+            Uri imageUri = null;
+
+            //condition for if uri is null
+            if(!(img ==null)) {
+                imageUri = Uri.parse(img);
+            }else{
+                imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                        "://" + getResources().getResourcePackageName(R.mipmap.revolt)
+                        + '/' + getResources().getResourceTypeName(R.mipmap.revolt)
+                        + '/' + getResources().getResourceEntryName(R.mipmap.revolt));
+            }
             //store for storage later
             oprice = price;
             oqty = qty;
