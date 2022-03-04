@@ -240,11 +240,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             //condition for if uri is null
             if(!(img ==null)) {
                 imageUri = Uri.parse(img);
+                imageString = imageUri.toString();
             }else{
                 imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                         "://" + getResources().getResourcePackageName(R.mipmap.revolt)
                         + '/' + getResources().getResourceTypeName(R.mipmap.revolt)
                         + '/' + getResources().getResourceEntryName(R.mipmap.revolt));
+                imageString = imageUri.toString();
             }
             //store for storage later
             oprice = price;
